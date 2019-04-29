@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, TXF">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="无风自舞" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="windows下安装最清爽的burpsuite1.7系列  官网下载原版  然后安装 下载破解补丁链接: https://pan.baidu.com/s/1brjPKM7 密码: 9v4r  下载jdk环境https://download.oracle.com/otn-pub/java/jdk/8u201-b09/42970487e3af4f5aa5bca3f542482c60/jdk-8u20">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mac渗透初试探">
+<meta property="og:url" content="txf7.xyz/2019/03/19/mac渗透初试探/index.html">
+<meta property="og:site_name" content="无风自舞">
+<meta property="og:description" content="windows下安装最清爽的burpsuite1.7系列  官网下载原版  然后安装 下载破解补丁链接: https://pan.baidu.com/s/1brjPKM7 密码: 9v4r  下载jdk环境https://download.oracle.com/otn-pub/java/jdk/8u201-b09/42970487e3af4f5aa5bca3f542482c60/jdk-8u20">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/16895266-2747e6e4f55743f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/16895266-5971cf8c8902e001.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/16895266-6d23913870bf47b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/16895266-48afe10fb117f7ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14134003-a6d798a015df2634.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14134003-da9ad0eb3e54fea9.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14134003-81013342e669673f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14134003-7ad5af91a59f7fca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14134003-c8daccabdbc1e248.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14134003-741ff9aea6d4cf49.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14134003-f38ec4aca7f715bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14134003-800e303ce9c4d4bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14134003-1ebce39e87ce3caa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-04-10T02:38:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mac渗透初试探">
+<meta name="twitter:description" content="windows下安装最清爽的burpsuite1.7系列  官网下载原版  然后安装 下载破解补丁链接: https://pan.baidu.com/s/1brjPKM7 密码: 9v4r  下载jdk环境https://download.oracle.com/otn-pub/java/jdk/8u201-b09/42970487e3af4f5aa5bca3f542482c60/jdk-8u20">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/16895266-2747e6e4f55743f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="txf7.xyz/2019/03/19/mac渗透初试探/">
+
+
+
+
+
+  <title>mac渗透初试探 | 无风自舞</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">无风自舞</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">高冷风的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="txf7.xyz/2019/03/19/mac渗透初试探/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Txf">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://www.gzsec.org/images/member11.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="无风自舞">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mac渗透初试探</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术指南/" itemprop="url" rel="index">
+                    <span itemprop="name">技术指南</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>windows下安装最清爽的burpsuite1.7系列</p>
+</blockquote>
+<h3 id="官网下载原版"><a href="#官网下载原版" class="headerlink" title="官网下载原版"></a>官网下载原版</h3><p><img src="https://upload-images.jianshu.io/upload_images/16895266-2747e6e4f55743f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/16895266-5971cf8c8902e001.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>然后安装</p>
+<h2 id="下载破解补丁"><a href="#下载破解补丁" class="headerlink" title="下载破解补丁"></a>下载破解补丁</h2><p>链接: <a href="https://pan.baidu.com/s/1brjPKM7" target="_blank" rel="noopener">https://pan.baidu.com/s/1brjPKM7</a> 密码: 9v4r</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/16895266-6d23913870bf47b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<h2 id="下载jdk环境"><a href="#下载jdk环境" class="headerlink" title="下载jdk环境"></a>下载jdk环境</h2><p><a href="https://download.oracle.com/otn-pub/java/jdk/8u201-b09/42970487e3af4f5aa5bca3f542482c60/jdk-8u201-windows-x64.exe?AuthParam=1552965316_da70718dc80b250a1aa668a34cf319a7" target="_blank" rel="noopener">https://download.oracle.com/otn-pub/java/jdk/8u201-b09/42970487e3af4f5aa5bca3f542482c60/jdk-8u201-windows-x64.exe?AuthParam=1552965316_da70718dc80b250a1aa668a34cf319a7</a></p>
+<h2 id="激活burp"><a href="#激活burp" class="headerlink" title="激活burp"></a>激活burp</h2><p>将burpsuite_pro_v1.7.36.jar改名</p>
+<p>为burpsuite_community.jar</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/16895266-48afe10fb117f7ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>修改BurpSuiteCommunity.vmoptions文件为以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-Xmx4096m</span><br><span class="line"></span><br><span class="line">-Xbootclasspath/p:burp-loader-keygen.jar</span><br></pre></td></tr></table></figure>
+<p>正常打开burp进行破解</p>
+<h1 id="安装burpsuite"><a href="#安装burpsuite" class="headerlink" title="安装burpsuite"></a>安装burpsuite</h1><p>需要下载好burp及其破解工具，过于简单，这里不讲，主要mac设置</p>
+<h1 id="下载burp汉化包"><a href="#下载burp汉化包" class="headerlink" title="下载burp汉化包"></a>下载burp汉化包</h1><p><a href="https://files.zsxq.com/FmaFRIllULVvDbtX6ioIVSILI9YS?attname=BurpSuiteCn.jar.zip&amp;e=1906272000&amp;token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:8KW62C9XAkqbmFJkBlj-63zFOdo=" target="_blank" rel="noopener">点击下载</a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/14134003-a6d798a015df2634.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="新建一个sh，例如burp-sh"><a href="#新建一个sh，例如burp-sh" class="headerlink" title="新建一个sh，例如burp.sh"></a>新建一个sh，例如burp.sh</h2><p>vim burp.sh</p>
+<h2 id="写入以下内容："><a href="#写入以下内容：" class="headerlink" title="写入以下内容："></a>写入以下内容：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd Desktop</span><br><span class="line">nohup java -javaagent:BurpSuiteCn.jar -Xbootclasspath/p:burp-loader-keygen.jar  -Xmx1024m -jar burpsuite_pro_v2.0beta.jar &amp;</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+<h2 id="赋予执行权限"><a href="#赋予执行权限" class="headerlink" title="赋予执行权限"></a>赋予执行权限</h2><p>chmod u+x burp.sh</p>
+<h2 id="编辑你的环境变量"><a href="#编辑你的环境变量" class="headerlink" title="编辑你的环境变量"></a>编辑你的环境变量</h2><p>vim ~/.bash_profile</p>
+<p>#在末尾新增一行<br>alias burp=burp.sh的绝对路径<br>如<br>alias burp=~/Desktop/burp.sh</p>
+<h2 id="应用环境变量"><a href="#应用环境变量" class="headerlink" title="应用环境变量"></a>应用环境变量</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<p>以后你只需要在Mac控制台输入burp<br>安装了zsh的可以<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.zshrc</span><br><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure></p>
+<p>让他每次都生效。<br><img src="https://upload-images.jianshu.io/upload_images/14134003-da9ad0eb3e54fea9.gif?imageMogr2/auto-orient/strip" alt="burp"></p>
+<blockquote>
+<p>mac跟windows真的一点不一样。建议还是别买了。<br>这里整理一下我的mac电脑使用坑。<br>类似于linux的apt和yum的自动安装，mac一般用homebrew</p>
+</blockquote>
+<h2 id="安装brew"><a href="#安装brew" class="headerlink" title="安装brew"></a>安装brew</h2><p>首先进入<a href="https://brew.sh" target="_blank" rel="noopener">https://brew.sh</a><br>然后复制执行命令<br><img src="https://upload-images.jianshu.io/upload_images/14134003-81013342e669673f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="brew"></p>
+<h2 id="第一次安装的时候一直报错"><a href="#第一次安装的时候一直报错" class="headerlink" title="第一次安装的时候一直报错"></a>第一次安装的时候一直报错</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fatal: The remote end hung up unexpectedly</span><br><span class="line">fatal: early EOF</span><br><span class="line">fatal: index-pack failed</span><br></pre></td></tr></table></figure>
+<p>我以为是墙的原因，所以我下载了一个SS,挂上代理开全局重新安装<br><img src="https://upload-images.jianshu.io/upload_images/14134003-7ad5af91a59f7fca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="还是报错"><a href="#还是报错" class="headerlink" title="还是报错"></a>还是报错</h2><p>又看到有人说<br>出现这个错误的原因是项目太久，tag资源文件太大<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">解决方式：</span><br><span class="line"></span><br><span class="line">   命令终端输入</span><br><span class="line"></span><br><span class="line">    git config --global http.postBuffer 524288000       </span><br><span class="line"></span><br><span class="line">  然后在重新执行brew安装命令即可</span><br></pre></td></tr></table></figure></p>
+<p>我也尝试了，然后还是不行，我以为是没重启，又重启了一次，仍然失败。<br>过了一天，再安装就成功了。</p>
+<h2 id="有人说把install镜像更换为国内的就可以了"><a href="#有人说把install镜像更换为国内的就可以了" class="headerlink" title="有人说把install镜像更换为国内的就可以了"></a>有人说把install镜像更换为国内的就可以了</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1、将brew的install文件下载本地</span><br><span class="line">      终端输入 curl -fsSL [https://raw.githubusercontent.com/Homebrew/install/master/install](https://raw.githubusercontent.com/Homebrew/install/master/install) &gt;&gt; brew_install</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">2、修改install文件的镜像源</span><br><span class="line">终端输入 vim brew_install</span><br><span class="line">将下面两行进行修改</span><br><span class="line">#BREW_REPO = &quot;[https://github.com/Homebrew/brew”.freeze](https://github.com/Homebrew/brew%E2%80%9D.freeze)</span><br><span class="line">#CORE_TAP_REPO = “[https://github.com/Homebrew/homebrew-core](https://github.com/Homebrew/homebrew-core)”.freeze</span><br><span class="line">替换成下面两句</span><br><span class="line">BREW_REPO = “[https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git](https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git)”.freeze</span><br><span class="line">CORE_TAP_REPO = &quot;[https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git”.freeze](https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git%E2%80%9D.freeze)</span><br><span class="line">#就是“BREW_REPO”和“CORE_TAP_REPO”这两项，将其修改为清华的镜像</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3、安装</span><br><span class="line">ruby ~/brew_install</span><br></pre></td></tr></table></figure>
+<h2 id="apktool安装"><a href="#apktool安装" class="headerlink" title="apktool安装"></a>apktool安装</h2><p>一开始我直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install apktool</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/14134003-c8daccabdbc1e248.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>提示下载失败，老老实实打开vpn</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/14134003-741ff9aea6d4cf49.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="dex2jar安装"><a href="#dex2jar安装" class="headerlink" title="dex2jar安装"></a>dex2jar安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install dex2jar</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/14134003-f38ec4aca7f715bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="反编译软件安装"><a href="#反编译软件安装" class="headerlink" title="反编译软件安装"></a>反编译软件安装</h2><blockquote>
+<p>jd-gui之前都是使用exe的，因为在mac下，所以这里我下载jar格式的。</p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/14134003-800e303ce9c4d4bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>官网凉了(jd.benow.ca)，我换个反编译软件。<br>procyon-decompiler-luyten <a href="https://github.com/deathmarine/Luyten" target="_blank" rel="noopener">https://github.com/deathmarine/Luyten</a></p>
+<p>Jadx <a href="https://github.com/skylot/jadx/" target="_blank" rel="noopener">https://github.com/skylot/jadx/</a>。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/14134003-1ebce39e87ce3caa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>加个好友</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://s1.ax1x.com/2018/12/20/FrE7PP.jpg" alt="Txf 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="https://s1.ax1x.com/2018/12/20/FrEb28.jpg" alt="Txf 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/26/burpsuite短信发送绕过Token保护/" rel="next" title="burpsuite短信发送绕过Token保护">
+                <i class="fa fa-chevron-left"></i> burpsuite短信发送绕过Token保护
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/19/某次公众号的渗透/" rel="prev" title="某次公众号的渗透">
+                某次公众号的渗透 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://www.gzsec.org/images/member11.jpeg" alt="Txf">
+            
+              <p class="site-author-name" itemprop="name">Txf</p>
+              <p class="site-description motion-element" itemprop="description">tangxiaofeng's blog | vuln | hack</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/tangxiaofeng7" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhukaiang@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/zhukaiang" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://cveform.mitre.org/" title="Title" target="_blank">Title</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#官网下载原版"><span class="nav-number">1.</span> <span class="nav-text">官网下载原版</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#下载破解补丁"><span class="nav-number"></span> <span class="nav-text">下载破解补丁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载jdk环境"><span class="nav-number"></span> <span class="nav-text">下载jdk环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#激活burp"><span class="nav-number"></span> <span class="nav-text">激活burp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装burpsuite"><span class="nav-number"></span> <span class="nav-text">安装burpsuite</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#下载burp汉化包"><span class="nav-number"></span> <span class="nav-text">下载burp汉化包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#新建一个sh，例如burp-sh"><span class="nav-number"></span> <span class="nav-text">新建一个sh，例如burp.sh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写入以下内容："><span class="nav-number"></span> <span class="nav-text">写入以下内容：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#赋予执行权限"><span class="nav-number"></span> <span class="nav-text">赋予执行权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编辑你的环境变量"><span class="nav-number"></span> <span class="nav-text">编辑你的环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用环境变量"><span class="nav-number"></span> <span class="nav-text">应用环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装brew"><span class="nav-number"></span> <span class="nav-text">安装brew</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一次安装的时候一直报错"><span class="nav-number"></span> <span class="nav-text">第一次安装的时候一直报错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#还是报错"><span class="nav-number"></span> <span class="nav-text">还是报错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有人说把install镜像更换为国内的就可以了"><span class="nav-number"></span> <span class="nav-text">有人说把install镜像更换为国内的就可以了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apktool安装"><span class="nav-number"></span> <span class="nav-text">apktool安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dex2jar安装"><span class="nav-number"></span> <span class="nav-text">dex2jar安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反编译软件安装"><span class="nav-number"></span> <span class="nav-text">反编译软件安装</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Txf</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+</body></html>
